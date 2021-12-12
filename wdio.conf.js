@@ -1,3 +1,7 @@
+const {exec} = require("child_process");
+const allure = require('allure-commandline')
+const allureReporter = require('@wdio/allure-reporter').default
+
 exports.config = {
     //
     // ====================
@@ -21,9 +25,10 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        'demoTests/specs/login.spec.js',
-        'demoTests/specs/inventory.spec.js',
+        // 'demoTests/specs/login.spec.js',
+        // 'demoTests/specs/inventory.spec.js',
         'demoTests/specs/sales.spec.js',
+        // 'demoTests/specs/ss.spec.js',
     ],
     // Patterns to exclude.
     exclude: [
@@ -134,10 +139,16 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec','dot',['allure', {outputDir: 'allure-results'}]],
+    // reporters: [
+        // ['allure', {
+        // outputDir: 'allure-results',
+        // disableWebdriverStepsReporting: true,
+        // disableWebdriverScreenshotsReporting: true,
+        // }], 
+    // ],
+    reporters: ['spec',['allure', {outputDir: 'allure-results', disableWebdriverStepsReporting: true, disableWebdriverScreenshotsReporting: true,}]],
 
 
-    
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -179,8 +190,11 @@ exports.config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      * @param {String} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs, cid) {
-    // },
+    beforeSession: function (config, capabilities, specs, cid) {
+        exec(`rm -rf screenShots`, (error, stdout, stderr) => {});
+        exec(`mkdir screenShots`, (error, stdout, stderr) => {});
+
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -231,8 +245,11 @@ exports.config = {
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        let d = new Date
         if (!passed) {
             await browser.takeScreenshot();
+            await browser.saveScreenshot(`./screenShots/${d.getTime()}.png`);
+            failedTests++
         }
     },
 
@@ -277,10 +294,30 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function(exitCode, config, capabilities, results) {
+        exec(`say Your test run is finished`, (error, stdout, stderr) => {});
+
+    //     const reportError = new Error('Could not generate Allure report')
+    //     const generation = allure(['generate', 'allure-results', '--clean'])
+    //     return new Promise((resolve, reject) => {
+    //         const generationTimeout = setTimeout(
+    //             () => reject(reportError),
+    //             5000)
+
+    //         generation.on('exit', function(exitCode) {
+    //             clearTimeout(generationTimeout)
+    //             console.log('exitCode is ', exitCode);
+    //             if (exitCode !== 0) {
+    //                 return reject(reportError)
+    //             }
+
+    //             console.log('Allure report successfully generated')
+    //             resolve()
+    //         })
+    //     })
+    },
     /**
-    * Gets executed when a refresh happens.
+    * Gets executed when a refresh happens. qs=3e8HLJmW.e*T1
     * @param {String} oldSessionId session ID of the old session
     * @param {String} newSessionId session ID of the new session
     */

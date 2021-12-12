@@ -154,7 +154,6 @@ describe('Sales Tests performance_glitch_user', () => {
 
     afterEach(async function () {
         await LoginPage.logOut();
-        // await browser.clearSessionStorage()
         await browser.deleteAllCookies()
     });
 
@@ -229,7 +228,6 @@ describe('Sales Tests problem_user', () => {
 
     afterEach(async function () {
         await LoginPage.logOut();
-        // await browser.clearSessionStorage()
         await browser.deleteAllCookies()
     });
 
