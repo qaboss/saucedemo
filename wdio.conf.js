@@ -23,6 +23,7 @@ exports.config = {
     specs: [
         'demoTests/specs/login.spec.js',
         'demoTests/specs/inventory.spec.js',
+        'demoTests/specs/sales.spec.js',
     ],
     // Patterns to exclude.
     exclude: [

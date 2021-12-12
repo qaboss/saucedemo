@@ -40,6 +40,37 @@ class InventoryPage {
         return text
     }
 
+    async getAllInventoryItemPrices() {
+        let elems = await $$('div.inventory_item div.inventory_item_price');
+        let arr = [];
+        for(let i = 0; i < elems.length; i++){
+            let text = await elems[i].getText()
+            text = +text.replace(',', '').match(/[0-9.]+$/g).join()
+            arr.push(text)
+        }
+        return arr;
+    }
+
+    async getAllInventoryItemNames() {
+        let elems = await $$('div.inventory_item_name');
+        let arr = [];
+        for(let i = 0; i < elems.length; i++){
+            let text = await elems[i].getText()
+            arr.push(text)
+        }
+        return arr;
+    }
+
+    async clickSortMenu(value) {
+        let elem = $('div.header_secondary_container span.select_container');
+        await elem.click()
+        let elem1 = $(`div.header_secondary_container span.select_container option[value="${value}"]`);
+        await elem1.waitForDisplayed()
+        await elem1.moveTo()
+        await elem1.click()
+        await browser.pause(1000)
+    }
+
     async clickOnCartIcon() {
         let elem = $('a.shopping_cart_link');
         await elem.click()
@@ -48,6 +79,16 @@ class InventoryPage {
     async clickCheckOutBtn() {
         let elem = $('button#checkout');
         await elem.waitForDisplayed({ timeout: 3000 })
+        await elem.click()
+    }
+
+    async clickCancelBtn() {
+        let elem = $('button#cancel');
+        await elem.click()
+    }
+
+    async clickContinueShopingBtn() {
+        let elem = $('button#continue-shopping');
         await elem.click()
     }
 
@@ -68,6 +109,7 @@ class InventoryPage {
         await elem.setValue(value);
         let text = await elem.getValue();
         expect(text).toEqual(value);
+        await expect(elem).toHaveValueContaining(value)
     }
 
     async inputLastName(value) {
