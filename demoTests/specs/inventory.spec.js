@@ -10,10 +10,10 @@ let remove = 'Remove';
 describe('Check sorting functionality', () => {
     beforeEach(async function () {
         await LoginPage.open();
+        await LoginPage.login(standard_user, validPass);
     });
     
     it('Check sorting A-Z functionality', async () => {
-        await LoginPage.login(standard_user, validPass);
         await InventoryPage.checkInventoryContainarVisibility(true);
         let namesArr = await InventoryPage.getAllInventoryItemNames();
         namesArr.sort();
@@ -30,7 +30,6 @@ describe('Check sorting functionality', () => {
     });
     
     it('Check sorting Z-A functionality', async () => {
-        await LoginPage.login(standard_user, validPass);
         await InventoryPage.checkInventoryContainarVisibility(true);
         let namesArr = await InventoryPage.getAllInventoryItemNames();
         namesArr.sort();
@@ -41,7 +40,6 @@ describe('Check sorting functionality', () => {
     });
     
     it('Check sorting ascending functionality', async () => {
-        await LoginPage.login(standard_user, validPass);
         await InventoryPage.checkInventoryContainarVisibility(true);
         let pricesArr = await InventoryPage.getAllInventoryItemPrices();
         console.log(pricesArr);
@@ -53,7 +51,6 @@ describe('Check sorting functionality', () => {
     });
     
     it('Check sorting descending functionality', async () => {
-        await LoginPage.login(standard_user, validPass);
         await InventoryPage.checkInventoryContainarVisibility(true);
         let pricesArr = await InventoryPage.getAllInventoryItemPrices();
         console.log(pricesArr);
@@ -63,38 +60,7 @@ describe('Check sorting functionality', () => {
         console.log(pricesArrSorted);
         expect(pricesArrSorted.join() === pricesArr.join()).toBe(true);
     });
-    
-    xit('Make 1 item sale', async () => {
-        let itemsQty = 1;
-        let price = 0;
-        let name = faker.name.findName();
-        await LoginPage.login(standard_user, validPass);
-        await InventoryPage.checkInventoryContainarVisibility(true);
-        for(let i = 0; i < itemsQty; i++){
-            await InventoryPage.checkAddRemoveBtn(i, addToCard.toUpperCase());
-            await InventoryPage.clickAddToCartBtn(i);
-            await InventoryPage.checkAddRemoveBtn(i, remove.toUpperCase());
-            price += await InventoryPage.getInventoryItemPrice(i);
-        }
-        await InventoryPage.checkCartContainerValue(itemsQty);
-        await InventoryPage.clickOnCartIcon();
-        await InventoryPage.checkCartItemaQty(itemsQty);
-        await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
-        await InventoryPage.inputPostalCode(faker.address.zipCode());
-        await browser.pause(1000)
-        await InventoryPage.clickContinueBtn();
-        let subtotalPrice = await InventoryPage.getSummarySubTotalPrice();
-        expect(subtotalPrice).toEqual(price);
-        let taxes = await InventoryPage.getSummaryTaxes();
-        expect(taxes).toEqual(+(price * 0.08).toFixed(2));
-        let totalPrice = await InventoryPage.getSummaryTotalPrice();
-        expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
-        await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
-    });
- 
+
     afterEach(async function () {
         await LoginPage.logOut();
         await browser.deleteAllCookies()
@@ -105,11 +71,11 @@ describe('Check sorting functionality', () => {
 describe('Check move back functionality', () => {
     before(async function () {
         await LoginPage.open();
+        await LoginPage.login(standard_user, validPass);
     });
     
     it('Check inventory Url', async () => {
         let itemsQty = 1;
-        await LoginPage.login(standard_user, validPass);
         await expect(browser).toHaveUrlContaining('inventory')
         await InventoryPage.checkInventoryContainarVisibility(true);
         for(let i = 0; i < itemsQty; i++){
