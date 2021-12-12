@@ -8,8 +8,9 @@ const problem_user = 'problem_user';
 const performance_glitch_user = 'performance_glitch_user';
 
 const validPass = 'secret_sauce';
-let addToCard = 'Add to cart';
-let remove = 'Remove';
+const addToCard = 'Add to cart';
+const remove = 'Remove';
+const thankYouMessage = 'THANK YOU FOR YOUR ORDER';
 
 describe('Sales Tests standard_user', () => {
     beforeEach(async function () {
@@ -32,8 +33,8 @@ describe('Sales Tests standard_user', () => {
         await InventoryPage.clickOnCartIcon();
         await InventoryPage.checkCartItemaQty(itemsQty);
         await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
+        await InventoryPage.inputFirstName(name.split(' ')[0]);
+        await InventoryPage.inputLastName(name.split(' ')[1]);
         await InventoryPage.inputPostalCode(faker.address.zipCode());
         await browser.pause(1000)
         await InventoryPage.clickContinueBtn();
@@ -44,7 +45,7 @@ describe('Sales Tests standard_user', () => {
         let totalPrice = await InventoryPage.getSummaryTotalPrice();
         expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
         await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
+        await InventoryPage.checkThankYouText(thankYouMessage);
     });
     
     it('Make multy items sale', async () => {
@@ -63,8 +64,8 @@ describe('Sales Tests standard_user', () => {
         await InventoryPage.clickOnCartIcon();
         await InventoryPage.checkCartItemaQty(itemsQty);
         await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
+        await InventoryPage.inputFirstName(name.split(' ')[0]);
+        await InventoryPage.inputLastName(name.split(' ')[1]);
         await InventoryPage.inputPostalCode(faker.address.zipCode());
         await browser.pause(1000)
         await InventoryPage.clickContinueBtn();
@@ -75,7 +76,7 @@ describe('Sales Tests standard_user', () => {
         let totalPrice = await InventoryPage.getSummaryTotalPrice();
         expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
         await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
+        await InventoryPage.checkThankYouText(thankYouMessage);
     });
 
     afterEach(async function () {
@@ -106,8 +107,8 @@ describe('Sales Tests performance_glitch_user', () => {
         await InventoryPage.clickOnCartIcon();
         await InventoryPage.checkCartItemaQty(itemsQty);
         await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
+        await InventoryPage.inputFirstName(name.split(' ')[0]);
+        await InventoryPage.inputLastName(name.split(' ')[1]);
         await InventoryPage.inputPostalCode(faker.address.zipCode());
         await browser.pause(1000)
         await InventoryPage.clickContinueBtn();
@@ -118,7 +119,7 @@ describe('Sales Tests performance_glitch_user', () => {
         let totalPrice = await InventoryPage.getSummaryTotalPrice();
         expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
         await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
+        await InventoryPage.checkThankYouText(thankYouMessage);
     });
     
     it('Make multy items sale', async () => {
@@ -137,8 +138,8 @@ describe('Sales Tests performance_glitch_user', () => {
         await InventoryPage.clickOnCartIcon();
         await InventoryPage.checkCartItemaQty(itemsQty);
         await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
+        await InventoryPage.inputFirstName(name.split(' ')[0]);
+        await InventoryPage.inputLastName(name.split(' ')[1]);
         await InventoryPage.inputPostalCode(faker.address.zipCode());
         await browser.pause(1000)
         await InventoryPage.clickContinueBtn();
@@ -149,7 +150,7 @@ describe('Sales Tests performance_glitch_user', () => {
         let totalPrice = await InventoryPage.getSummaryTotalPrice();
         expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
         await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
+        await InventoryPage.checkThankYouText(thankYouMessage);
     });
 
     afterEach(async function () {
@@ -180,8 +181,8 @@ describe('Sales Tests problem_user', () => {
         await InventoryPage.clickOnCartIcon();
         await InventoryPage.checkCartItemaQty(itemsQty);
         await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
+        await InventoryPage.inputFirstName(name.split(' ')[0]);
+        await InventoryPage.inputLastName(name.split(' ')[1]);
         await InventoryPage.inputPostalCode(faker.address.zipCode());
         await browser.pause(1000)
         await InventoryPage.clickContinueBtn();
@@ -192,7 +193,7 @@ describe('Sales Tests problem_user', () => {
         let totalPrice = await InventoryPage.getSummaryTotalPrice();
         expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
         await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
+        await InventoryPage.checkThankYouText(thankYouMessage);
     });
     
     it('Make multy items sale', async () => {
@@ -211,8 +212,8 @@ describe('Sales Tests problem_user', () => {
         await InventoryPage.clickOnCartIcon();
         await InventoryPage.checkCartItemaQty(itemsQty);
         await InventoryPage.clickCheckOutBtn();
-        await InventoryPage.inputFirstName(name.split( ' ')[0]);
-        await InventoryPage.inputLastName(name.split( ' ')[1]);
+        await InventoryPage.inputFirstName(name.split(' ')[0]);
+        await InventoryPage.inputLastName(name.split(' ')[1]);
         await InventoryPage.inputPostalCode(faker.address.zipCode());
         await browser.pause(1000)
         await InventoryPage.clickContinueBtn();
@@ -223,7 +224,7 @@ describe('Sales Tests problem_user', () => {
         let totalPrice = await InventoryPage.getSummaryTotalPrice();
         expect(+(subtotalPrice + taxes).toFixed(2)).toEqual(totalPrice);
         await InventoryPage.clickFinishBtn();
-        await InventoryPage.checkThankYouText('THANK YOU FOR YOUR ORDER');
+        await InventoryPage.checkThankYouText(thankYouMessage);
     });
 
     afterEach(async function () {

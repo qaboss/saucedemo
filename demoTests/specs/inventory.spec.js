@@ -1,5 +1,6 @@
 const LoginPage = require('../pageobjects/login.page');
 const InventoryPage = require('../pageobjects/inventory.page');
+const assert = require('assert');
 
 const standard_user = 'standard_user';
 
@@ -26,7 +27,7 @@ describe('Check sorting functionality', () => {
             flag = false
           }
         }
-        expect(flag).toBe(true);
+        assert.equal(flag, true);
     });
     
     it('Check sorting Z-A functionality', async () => {

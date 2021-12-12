@@ -17,6 +17,7 @@
         "wdio": "wdio run wdio.conf.js"
     },
     "dependencies": {
-        "allure-commandline": "^2.13.8"
+        "allure-commandline": "^2.13.8",
+        "mocha": "^9.1.3"
     }
 }

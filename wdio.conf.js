@@ -25,8 +25,8 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        // 'demoTests/specs/login.spec.js',
-        // 'demoTests/specs/inventory.spec.js',
+        'demoTests/specs/login.spec.js',
+        'demoTests/specs/inventory.spec.js',
         'demoTests/specs/sales.spec.js',
         // 'demoTests/specs/ss.spec.js',
     ],
@@ -64,6 +64,9 @@ exports.config = {
         maxInstances: 1,
         //
         browserName: 'chrome',
+        // 'goog:chromeOptions': { 
+        //      args: ["--headless", "user-agent=...","--disable-gpu","--window-size=1080,920"]
+        // },
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
@@ -297,24 +300,24 @@ exports.config = {
     onComplete: function(exitCode, config, capabilities, results) {
         exec(`say Your test run is finished`, (error, stdout, stderr) => {});
 
-    //     const reportError = new Error('Could not generate Allure report')
-    //     const generation = allure(['generate', 'allure-results', '--clean'])
-    //     return new Promise((resolve, reject) => {
-    //         const generationTimeout = setTimeout(
-    //             () => reject(reportError),
-    //             5000)
+        // const reportError = new Error('Could not generate Allure report')
+        // const generation = allure(['generate', 'allure-results', '--clean'])
+        // return new Promise((resolve, reject) => {
+        //     const generationTimeout = setTimeout(
+        //         () => reject(reportError),
+        //         5000)
 
-    //         generation.on('exit', function(exitCode) {
-    //             clearTimeout(generationTimeout)
-    //             console.log('exitCode is ', exitCode);
-    //             if (exitCode !== 0) {
-    //                 return reject(reportError)
-    //             }
+        //     generation.on('exit', function(exitCode) {
+        //         clearTimeout(generationTimeout)
+        //         console.log('exitCode is ', exitCode);
+        //         if (exitCode !== 0) {
+        //             return reject(reportError)
+        //         }
 
-    //             console.log('Allure report successfully generated')
-    //             resolve()
-    //         })
-    //     })
+        //         console.log('Allure report successfully generated')
+        //         resolve()
+        //     })
+        // })
     },
     /**
     * Gets executed when a refresh happens. qs=3e8HLJmW.e*T1
