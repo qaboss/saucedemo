@@ -67,7 +67,7 @@ exports.config = {
             'goog:chromeOptions': {
                 args: [
                     "--window-size=1000,1000",
-                    '--headless'
+                    // '--headless'
                 ]
             },
         acceptInsecureCerts: true
